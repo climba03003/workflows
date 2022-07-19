@@ -1,0 +1,42 @@
+name: PNPM CI
+
+on:
+  workflow_call:
+    inputs:
+      pnpm-version:
+        description: 'PNPM version used'
+        required: false
+        default: '7.5.2'
+        type: string
+
+jobs:
+  test:
+    name: Test
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
+    strategy:
+      matrix:
+        node-version: [14, 16, 18]
+        os: [ubuntu-latest]
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+
+      - name: Setup Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v2.2.2
+        with:
+          version: ${{ inputs.pnpm-version }}
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run tests
+        run: pnpm run test
