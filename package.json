@@ -1,6 +1,6 @@
 {
   "name": "@climba03003/workflows",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "Reusable workflows for climba03003 projects",
   "private": true,
   "scripts": {},
