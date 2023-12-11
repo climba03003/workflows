@@ -75,7 +75,7 @@ jobs:
       contents: read
     strategy:
       matrix:
-        node-version: [16, 18]
+        node-version: [18, 20]
         os: [macos-latest, ubuntu-latest, windows-latest]
     steps:
       - name: Check out repo
@@ -97,8 +97,8 @@ jobs:
   automerge:
     name: Automerge Dependabot PRs
     if: >
-        github.event_name == 'pull_request' &&
-        github.event.pull_request.user.login == 'dependabot[bot]'
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.user.login == 'dependabot[bot]'
     needs: test
     permissions:
       pull-requests: write
